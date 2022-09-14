@@ -1,15 +1,14 @@
 
-export const getHeaders = (headers) => {
+export const getHeaders = () => {
     return {
-        ...headers,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
     }
 }
 
-export const buildResponse = (body, statusCode, headers) => {
-    const headers = getHeaders(headers);
+export const buildResponse = (body, statusCode) => {
+    const headers = getHeaders();
     return {
         statusCode,
         headers,
