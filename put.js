@@ -27,6 +27,6 @@ export const updateRsvp = async event => {
 
         return buildResponse(person, 200);
     } catch (error) {
-        return buildResponse(err, 500);
+        return buildResponse(error, 500);
     }
 }
