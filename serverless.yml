@@ -1,0 +1,73 @@
+service: wedding-api
+frameworkVersion: '3'
+
+plugins:
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: dev
+  region: us-east-1
+
+  environment:
+    DATABASE_NAME: ${env:DATABASE_NAME}
+    DATABASE_USERNAME: ${env:DATABASE_USERNAME}
+    DATABASE_PASSWORD: ${env:DATABASE_PASSWORD}
+    DATABASE_ENDPOINT: ${env:DATABASE_ENDPOINT}
+
+functions:
+  getPeople:
+    handler: get.getPeople
+    events:
+      - http:
+          path: people
+          method: get
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - accessToken
+              - accesstoken
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+  getPerson:
+    handler: get.getPersonByInviteCode
+    events:
+      - http:
+          path: people/{id}
+          method: get
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - accessToken
+              - accesstoken
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+  updateRsvp:
+    handler: put.updateRsvp
+    events:
+      - http:
+          path: people/{id}
+          method: put
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - accessToken
+              - accesstoken
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false

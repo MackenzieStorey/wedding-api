@@ -1,0 +1,11 @@
+{
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "glob": "^8.0.3",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.19.2",
+    "serverless-dotenv-plugin": "^4.0.1",
+    "serverless-plugin-include-dependencies": "^5.0.0"
+  }
+}
