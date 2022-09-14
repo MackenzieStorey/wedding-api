@@ -1,6 +1,10 @@
-import 'dotenv/config'
+import 'dotenv/config' // TODO: figure out why I need to import this to have access to env vars. might have to live with it.
+import { buildResponse } from './utils.js';
 import { people } from "./models/index.js";
 
+/*
+ *  Updates a record in the person table.
+ */
 export const updateRsvp = async event => {
     try {
         const { isComing, countComing, dietaryRestrictions, songRequests } = JSON.parse(event.body);
@@ -21,26 +25,8 @@ export const updateRsvp = async event => {
 
         await person.save();
 
-        return {
-            statusCode: 200,
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': true,
-            },
-            isBase64Encoded: false,
-            body: JSON.stringify(person)
-        };
-    } catch (err) {
-        return {
-            statusCode: 500,
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': true,
-            },
-            isBase64Encoded: false,
-            body: JSON.stringify(err)
-        };
+        return buildResponse(person, 200);
+    } catch (error) {
+        return buildResponse(err, 500);
     }
 }
